@@ -1,3 +1,4 @@
 target/
 .clj-kondo/
-.lein-repl-history
+.lsp/
+.lein-*
