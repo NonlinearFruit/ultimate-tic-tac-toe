@@ -9,7 +9,7 @@
 (describe "_ultimate_ tic tac toe"
   (context "has the player won the board?"
     (it "has no win for nil board"
-      (should= false (has-player-won? :x [nil nil nil nil nil nil nil nil nil])))
+      (should= false (has-player-won? :x n)))
     (it "has no win for cats game"
       (should= false (has-player-won? :x [:x :o :x :x :o :x :o :x :o])))
     (it "has no win for opponents game"
@@ -63,15 +63,15 @@
 
   (context "stringy board"
     (it "makes a blank board"
-      (should= " | | \n-+-+-\n | | \n-+-+-\n | | " (stringify-board [nil nil nil nil nil nil nil nil nil])))
+      (should= " | | \n-+-+-\n | | \n-+-+-\n | | " (stringify-board n)))
     (it "populates each cell dynamically"
       (should= "a|b|c\n-+-+-\nd|e|f\n-+-+-\ng|h|i" (stringify-board [:a :b :c :d :e :f :g :h :i]))))
           
   (context "split multiboard into layers"
     (it "turns a single board into 5 layers"
-      (should= 5 (count (split-into-layers [[nil nil nil nil nil nil nil nil nil]]))))
+      (should= 5 (count (split-into-layers [n]))))
     (it "turns two boards into 10 layers"
-      (should= 10 (count (split-into-layers [[nil nil nil nil nil nil nil nil nil] [nil nil nil nil nil nil nil nil nil]])))))
+      (should= 10 (count (split-into-layers [n n])))))
           
   (context "order layers for inserting"
     (it "puts layers in correct order"
