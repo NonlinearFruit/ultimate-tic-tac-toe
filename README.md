@@ -44,6 +44,13 @@ lein spec
 
 ## Plan
 
+- Play move at board and square
+- Alternate turns (player vs player)
+- Bot that makes random moves (player vs bot)
+- Better display
+
+### Display
+
 Board View
 
 ```
