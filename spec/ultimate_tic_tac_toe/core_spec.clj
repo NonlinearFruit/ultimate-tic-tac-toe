@@ -2,8 +2,12 @@
   (:require [speclj.core :refer :all]
             [ultimate-tic-tac-toe.core :refer :all]))
 
+(def n [nil nil nil nil nil nil nil nil nil])
+(def x [:x :x :x nil nil nil nil nil nil])
+(def o [:o :o :o nil nil nil nil nil nil])
+
 (describe "_ultimate_ tic tac toe"
-  (context "has player won?"
+  (context "has the player won the board?"
     (it "has no win for nil board"
       (should= false (has-player-won? :x [nil nil nil nil nil nil nil nil nil])))
     (it "has no win for cats game"
@@ -30,38 +34,38 @@
     (it "finds backward diagonal win"
       (should= true (has-player-won? :x [:x nil nil nil :x nil nil nil :x]))))
 
+  (context "has the player won the multiboard?"
+    (it "has no win for nil board"
+      (should= false (has-player-won-the-multi-board? :x [n n n n n n n n n])))
+    (it "has no win for cats game"
+      (should= false (has-player-won-the-multi-board? :x [x o x x o x o x o])))
+    (it "has no win for opponents game"
+      (should= false (has-player-won-the-multi-board? :x [o o o n n n n n n])))
+
+    (it "finds top row win"
+      (should= true (has-player-won-the-multi-board? :x [x x x n n n n n n])))
+    (it "finds middle row win"
+      (should= true (has-player-won-the-multi-board? :x [n n n x x x n n n])))
+    (it "finds bottom row win"
+      (should= true (has-player-won-the-multi-board? :x [n n n n n n x x x])))
+
+    (it "finds first column win"
+      (should= true (has-player-won-the-multi-board? :x [x n n x n n x n n])))
+    (it "finds middle column win"
+      (should= true (has-player-won-the-multi-board? :x [n x n n x n n x n])))
+    (it "finds last column win"
+      (should= true (has-player-won-the-multi-board? :x [n n x n n x n n x])))
+
+    (it "finds forward diagonal win"
+      (should= true (has-player-won-the-multi-board? :x [n n x n x n x n n])))
+    (it "finds backward diagonal win"
+      (should= true (has-player-won-the-multi-board? :x [x n n n x n n n x]))))
+
   (context "stringy board"
     (it "makes a blank board"
       (should= " | | \n-+-+-\n | | \n-+-+-\n | | " (stringify-board [nil nil nil nil nil nil nil nil nil])))
     (it "populates each cell dynamically"
       (should= "a|b|c\n-+-+-\nd|e|f\n-+-+-\ng|h|i" (stringify-board [:a :b :c :d :e :f :g :h :i]))))
-
-  ; (context "stringy multiboard"
-  ;   (it "makes a blank multiboard"
-  ;     (should=  "         |         |         \n   | |   |   | |   |   | |   \n  -+-+-  |  -+-+-  |  -+-+-  \n   | |   |   | |   |   | |   \n  -+-+-  |  -+-+-  |  -+-+-  \n   | |   |   | |   |   | |   \n         |         |         \n---------+---------+---------\n         |         |         \n   | |   |   | |   |   | |   \n  -+-+-  |  -+-+-  |  -+-+-  \n   | |   |   | |   |   | |   \n  -+-+-  |  -+-+-  |  -+-+-  \n   | |   |   | |   |   | |   \n         |         |         \n---------+---------+---------\n         |         |         \n   | |   |   | |   |   | |   \n  -+-+-  |  -+-+-  |  -+-+-  \n   | |   |   | |   |   | |   \n  -+-+-  |  -+-+-  |  -+-+-  \n   | |   |   | |   |   | |   \n         |         |         " (stringify-multi-board [
-  ;       [nil nil nil nil nil nil nil nil nil]
-  ;       [nil nil nil nil nil nil nil nil nil]
-  ;       [nil nil nil nil nil nil nil nil nil]
-  ;       [nil nil nil nil nil nil nil nil nil]
-  ;       [nil nil nil nil nil nil nil nil nil]
-  ;       [nil nil nil nil nil nil nil nil nil]
-  ;       [nil nil nil nil nil nil nil nil nil]
-  ;       [nil nil nil nil nil nil nil nil nil]
-  ;       [nil nil nil nil nil nil nil nil nil]])))
-  ;   (it "makes a realistic multiboard"
-  ;     (should= "" (stringify-multi-board [
-  ;       [:x  :o  :x  :x  :o  :x  :o  :x  :o]
-  ;       [:x  :o  :x  :x  :o  :x  :o  :x  :o]
-  ;       [:x  :o  :x  :x  :o  :x  :o  :x  :o]
-  ;       [nil nil nil nil nil nil nil nil nil]
-  ;       [:x  :o  :x  :x  :o  :x  :o  :x  :o]
-  ;       [:x  :o  :x  :x  :o  :x  :o  :x  :o]
-  ;       [:x  :o  :x  :x  :o  :x  :o  :x  :o]
-  ;       [nil nil nil nil nil nil nil nil nil]
-  ;       [:x  :o  :x  :x  :o  :x  :o  :x  :o]
-  ;       [:x  :o  :x  :x  :o  :x  :o  :x  :o]
-  ;       [:x  :o  :x  :x  :o  :x  :o  :x  :o]
-  ;       [nil nil nil nil nil nil nil nil nil]]))))
           
   (context "split multiboard into layers"
     (it "turns a single board into 5 layers"
