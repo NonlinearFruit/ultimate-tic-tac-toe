@@ -45,8 +45,8 @@ lein spec
 
 ## Plan
 
-- Play move at board and square
-- Alternate turns (player vs player)
+- Pipeline
+- End when multiboard is won
 - Bot that makes random moves (player vs bot)
 - Better display
 

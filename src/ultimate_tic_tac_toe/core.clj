@@ -89,16 +89,16 @@
         "       | | | |/ __|   | |/ _` |/ __|   | |/ _ ? / _ ?     "
         "       | | | | (__    | | (_| | (__    | | (_) |  __/     "
         "       |_| |_|?___|   |_|?__,_|?___|   |_|?___/ ?___|     "
-        "                                                          "])
+        "                                                          "
+        "                 <<Press enter to start>>                 "])
       "?" "\\")))
 
 (defn -main
   [& args]
   (print-title)
-  (println "                <<Press enter to start>>")
   (read-line)
   (clear-screen)
-  (loop [multiboard empty-multi-board]
-    (let [symbol :x]
-      (recur (assoc-in multiboard (get-move multiboard) symbol)))))
+  (loop [multiboard empty-multi-board
+         symbol :x]
+    (recur (assoc-in multiboard (get-move multiboard) symbol) (if (= symbol :x) :o :x))))
 
