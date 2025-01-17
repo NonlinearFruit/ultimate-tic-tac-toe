@@ -17,6 +17,7 @@ What is Ultimate Tic Tac Toe? ([wiki](https://en.wikipedia.org/wiki/Ultimate_tic
 ## Clojure
 
 - Leiningen <https://leiningen.org/>
+    - Also clojure cli <https://tomekw.com/clojure-deps-edn-a-basic-guide/>
 - Speclj <https://github.com/slagyr/speclj>
     - Docs <http://micahmartin.com/speclj/speclj.core.html>
 - Docs <https://clojuredocs.org/>

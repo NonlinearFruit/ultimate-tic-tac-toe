@@ -1,5 +1,8 @@
 (ns ultimate-tic-tac-toe.core)
 
+(def empty-board (vec (take 9 (repeat nil))))
+(def empty-multi-board (vec (take 9 (repeat empty-board))))
+
 (def lines (apply concat (vals {
   :rows [[0 1 2] [3 4 5] [6 7 8]]
   :columns [[0 3 6] [1 4 7] [2 5 8]]
@@ -65,67 +68,9 @@
       "layer", "%s")
     (order-layers-for-inserting (split-into-layers multiboard))))
 
-(defn print-multi-board [multiboard]
-  (println 
-      (clojure.string/join "\n" [
-        "                                      "
-        "                                      "
-        "                                      "
-        "                  |         |         "
-        "            | |   |  1|2|3  |   | |   "
-        "           -+-+-  |  -+-+-  |  -+-+-  "
-        "            | |   |  4|5|6  |   | |   "
-        "           -+-+-  |  -+-+-  |  -+-+-  "
-        "            | |   |  7|8|9  |   | |   "
-        "                  |         |         "
-        "         ---------+---------+---------"
-        "                  |         |         "
-        "           X|X|O  |   | |   |   | |   "
-        "           -+-+-  |  -+-+-  |  -+-+-  "
-        "           O|X|X  |  O|X|   |   | |   "
-        "           -+-+-  |  -+-+-  |  -+-+-  "
-        "           O|O|X  |   | |   |   | |   "
-        "                  |         |         "
-        "         ---------+---------+---------"
-        "                  |         |         "
-        "           X   X  |  OOOOO  |   | |   "
-        "            X X   |  O   O  |  -+-+-  "
-        "             X    |  O   O  |   | |   "
-        "            X X   |  O   O  |  -+-+-  "
-        "           X   X  |  OOOOO  |   | |   "
-        "                  |         |         "
-        "                                      "])))
-
-(defn print-board-selection []
-  (println 
-      (clojure.string/join "\n" [
-        "                                      "
-        "                                      "
-        "                                      "
-        "                  |         |         "
-        "             1    |   222   |  3333   "
-        "             1    |  2   2  |      3  "
-        "             1    |     2   |   333   "
-        "             1    |    2    |      3  "
-        "             1    |   2222  |  3333   "
-        "                  |         |         "
-        "         ---------+---------+---------"
-        "                  |         |         "
-        "              4   |   5555  |  66666  "
-        "           4  4   |  5      |  6      "
-        "           4444   |  55555  |  66666  "
-        "              4   |      5  |  6   6  "
-        "              4   |  55555  |  66666  "
-        "                  |         |         "
-        "         ---------+---------+---------"
-        "                  |         |         "
-        "           77777  |   888   |  99999  "
-        "               7  |  8   8  |  9   9  "
-        "              7   |   888   |  99999  "
-        "             7    |  8   8  |      9  "
-        "            7     |   888   |  99999  "
-        "                  |         |         "
-        "                                      "])))
+(defn get-move [multiboard]
+  (println (stringify-multi-board multiboard))
+    [(parse-long (read-line)) (parse-long (read-line))])
 
 (defn clear-screen []
   (print "\033[H\033[2J"))
@@ -153,21 +98,7 @@
   (println "                <<Press enter to start>>")
   (read-line)
   (clear-screen)
-  (print-board-selection)
-  (print "Board: ")
-  (flush)
-  (println "hmm... " (read-line))
-  (print "Square: ")
-  (flush)
-  (println "hmm... " (read-line))
-  (println (stringify-multi-board [
-        [nil nil nil nil nil nil nil nil nil]
-        [nil nil nil nil nil nil nil nil nil]
-        [nil nil nil nil nil nil nil nil nil]
-        [nil nil nil nil nil nil nil nil nil]
-        [nil nil nil nil nil nil nil nil nil]
-        [nil nil nil nil nil nil nil nil nil]
-        [nil nil nil nil nil nil nil nil nil]
-        [nil nil nil nil nil nil nil nil nil]
-        [nil nil nil nil nil nil nil nil nil]])))
+  (loop [multiboard empty-multi-board]
+    (let [symbol :x]
+      (recur (assoc-in multiboard (get-move multiboard) symbol)))))
 
