@@ -7,6 +7,11 @@
 (def o [:o :o :o nil nil nil nil nil nil])
 
 (describe "_ultimate_ tic tac toe"
+  (context "opponent"
+    (it "is :x for :o"
+      (should= :o (opponent :x)))
+    (it "is :o for :x"
+      (should= :x (opponent :o))))
   (context "has the player won the board?"
     (it "has no win for nil board"
       (should= false (has-player-won? :x n)))
