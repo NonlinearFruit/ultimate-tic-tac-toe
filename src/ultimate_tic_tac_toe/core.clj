@@ -93,12 +93,14 @@
         "                 <<Press enter to start>>                 "])
       "?" "\\")))
 
-(defn -main
-  [& args]
+(defn -main [& args]
   (print-title)
   (read-line)
   (clear-screen)
-  (loop [multiboard empty-multi-board
-         symbol :x]
-    (recur (assoc-in multiboard (get-move multiboard) symbol) (if (= symbol :x) :o :x))))
+  (println (loop [multiboard empty-multi-board symbol :x]
+    (cond
+      (has-player-won-the-multi-board? :x multiboard) "x won!"
+      (has-player-won-the-multi-board? :o multiboard) "o won!"
+      false "is-multi-board-filled? cat's game"
+      :continue (recur (assoc-in multiboard (get-move multiboard) symbol) (if (= symbol :x) :o :x))))))
 

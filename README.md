@@ -46,7 +46,7 @@ lein spec
 
 ## Plan
 
-- End when multiboard is won
+- Validate inputs
 - Bot that makes random moves (player vs bot)
 - Better display
 
