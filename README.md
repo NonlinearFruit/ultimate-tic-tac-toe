@@ -46,20 +46,25 @@ lein spec
 
 ## Plan
 
-- Validate inputs
-    - Can't steal square already set
-    - Input must be in 0-8 range
-    - Can't play in a board that is won
+- Validate square choice
+    - must be a currently nil square
+    - must be in 0-8 range
+- Validate board choice
+    - must be in 0-8 range
+    - can't be a won board
+    - can't be a full board
+- Validate board choice (advanced)
+    - Track last move (or history)
     - If opponent plays in square x and board x isn't won, then player must play on board x 
-- Bot to play against
-    - that makes random moves (player vs bot)
-    - that uses a minimax via some heuristic
-    - that does a monte-carlo tree search
+- Bot that makes random moves (player vs bot)
+- Bot that uses a minimax via some heuristic
+- Bot that does a monte-carlo tree search
 - Better display
     - Best win display/game conclusion
     - Prompt the user for board, then square
     - Display boards that are won as the symbol that won it
 - vhs gif(s) <https://github.com/charmbracelet/vhs>
+- renovate
 
 ### Display
 
