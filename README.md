@@ -48,9 +48,7 @@ lein spec
 
 - Validate square choice
     - must be a currently nil square
-    - must be in 0-8 range
 - Validate board choice
-    - must be in 0-8 range
     - can't be a won board
     - can't be a full board
 - Validate board choice (advanced)

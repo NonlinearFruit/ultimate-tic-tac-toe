@@ -77,7 +77,16 @@
 (defn get-move [multiboard]
   (clear-screen)
   (println (stringify-multi-board multiboard))
-    [(parse-long (read-line)) (parse-long (read-line))])
+    [(loop []
+      (let [board-choice (parse-long (read-line))]
+       (cond
+         (or (< board-choice 0) (> board-choice 8)) (do (println "Board must be 0 to 8") (recur))
+         :else board-choice)))
+    (loop []
+      (let [square-choice (parse-long (read-line))]
+       (cond
+         (or (< square-choice 0) (> square-choice 8)) (do (println "Square must be 0 to 8") (recur))
+         :else square-choice)))])
 
 (defn title-screen []
   (clear-screen)
