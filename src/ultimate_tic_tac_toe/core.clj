@@ -78,17 +78,17 @@
   (clear-screen)
   (println (stringify-multi-board multiboard))
     [(loop []
-      (let [board-choice (parse-long (read-line))]
+      (let [board-choice (- (parse-long (read-line)) 1)]
        (cond
-         (or (< board-choice 0) (> board-choice 8)) (do (println "Board must be 0 to 8") (recur))
+         (or (< board-choice 0) (> board-choice 8)) (do (println "Board must be 1 to 9") (recur))
          (has-player-won? :x (multiboard board-choice)) (do (println "Board must not be won") (recur))
          (has-player-won? :o (multiboard board-choice)) (do (println "Board must not be won") (recur))
          (not-any? #(= nil %1) (multiboard board-choice)) (do (println "Board must not be full") (recur))
          :else board-choice)))
     (loop []
-      (let [square-choice (parse-long (read-line))]
+      (let [square-choice (- (parse-long (read-line)) 1)]
        (cond
-         (or (< square-choice 0) (> square-choice 8)) (do (println "Square must be 0 to 8") (recur))
+         (or (< square-choice 0) (> square-choice 8)) (do (println "Square must be 1 to 9") (recur))
          :else square-choice)))])
 
 (defn title-screen []
