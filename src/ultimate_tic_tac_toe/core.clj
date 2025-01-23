@@ -84,18 +84,19 @@
        (not-any? #(= nil %1) (multiboard board-choice)) (do (println "Board must not be full") (recur))
        :else board-choice))))
 
-(defn get-square-choice []
+(defn get-square-choice [board]
   (loop []
     (let [square-choice (- (parse-long (read-line)) 1)]
      (cond
        (or (< square-choice 0) (> square-choice 8)) (do (println "Square must be 1 to 9") (recur))
+       (not= nil (board square-choice)) (do (println "Square must be empty") (recur))
        :else square-choice))))
 
 (defn get-move [multiboard]
   (clear-screen)
   (println (stringify-multi-board multiboard))
   (let [board-choice (get-board-choice multiboard)
-        square-choice (get-square-choice)]
+        square-choice (get-square-choice (multiboard board-choice))]
     [board-choice square-choice]))
 
 (defn title-screen []
