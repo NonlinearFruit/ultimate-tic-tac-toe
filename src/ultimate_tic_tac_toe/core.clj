@@ -83,6 +83,7 @@
          (or (< board-choice 0) (> board-choice 8)) (do (println "Board must be 0 to 8") (recur))
          (has-player-won? :x (multiboard board-choice)) (do (println "Board must not be won") (recur))
          (has-player-won? :o (multiboard board-choice)) (do (println "Board must not be won") (recur))
+         (not-any? #(= nil %1) (multiboard board-choice)) (do (println "Board must not be full") (recur))
          :else board-choice)))
     (loop []
       (let [square-choice (parse-long (read-line))]

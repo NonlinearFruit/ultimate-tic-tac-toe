@@ -48,8 +48,6 @@ lein spec
 
 - Validate square choice
     - must be a currently nil square
-- Validate board choice
-    - can't be a full board
 - Validate board choice (advanced)
     - Track last move (or history)
     - If opponent plays in square x and board x isn't won, then player must play on board x 
