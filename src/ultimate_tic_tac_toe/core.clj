@@ -98,7 +98,7 @@
       (range 9))))
 
 (defn get-board-choice [multiboard & [last-move]]
-  (prompt "Board " (possible-board-choices multiboard last-move)))
+  (prompt "Board" (possible-board-choices multiboard last-move)))
 
 (defn possible-square-choices [board]
   (filter
