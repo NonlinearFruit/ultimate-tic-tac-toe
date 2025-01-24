@@ -113,6 +113,11 @@
         square-choice (get-square-choice (multiboard board-choice))]
     [board-choice square-choice]))
 
+(defn random-bot [multiboard last-move]
+  (let [board-choice (rand-nth (possible-board-choices multiboard last-move))
+        square-choice (rand-nth (possible-square-choices (multiboard board-choice)))]
+    [board-choice square-choice]))
+
 (defn title-screen []
   (clear-screen)
   (println
@@ -152,5 +157,5 @@
 
 (defn -main [& args]
   (title-screen)
-  (announce-winner (play-the-game get-move get-move)))
+  (announce-winner (play-the-game get-move random-bot)))
 

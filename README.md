@@ -46,7 +46,6 @@ lein spec
 
 ## Plan
 
-- Bot that makes random moves (player vs bot)
 - Bot that uses a minimax via some heuristic
 - Bot that does a monte-carlo tree search
     - play-the-game optionally takes a multiboard

@@ -147,6 +147,19 @@
             (it "returns :o when the second player wins"
                 (should= :o (play-the-game
                               (fake-player (repeat [0 1]))
-                              (fake-player [[0 0] [0 4] [0 8] [4 0] [4 4] [4 8] [8 0] [8 4] [8 8]]))))))
+                              (fake-player [[0 0] [0 4] [0 8] [4 0] [4 4] [4 8] [8 0] [8 4] [8 8]])))))
 
+          (context "random bot"
+            (it "chooses a board in the right range"
+                (should-contain (first (random-bot empty-multi-board nil))
+                                (range 9)))
+            (it "chooses only available board"
+                (should= 8 (first (random-bot [c c c c c c c c n] nil))))
+            (it "chooses board based on opponents move"
+                (should= 5 (first (random-bot empty-multi-board [0 5]))))
+            (it "chooses only available square"
+                (should= 5 (second (random-bot [c c c c c (assoc c 5 nil) c c c] nil))))
+            (it "chooses a square in the right range"
+                (should-contain (second (random-bot empty-multi-board nil))
+                                (range 9)))))
 (run-specs)
