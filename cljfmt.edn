@@ -1,0 +1,7 @@
+{:parallel? true
+ :paths ["src"
+         "spec"
+         "project.clj"
+         "cljfmt.edn"]
+ :sort-ns-references? true
+ :function-arguments-indentation :cursive}
