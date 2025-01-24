@@ -74,6 +74,14 @@
 (defn clear-screen []
   (print "\033[H\033[2J"))
 
+(defn prompt [msg options]
+  (loop []
+    (print msg "[" (clojure.string/join "," (map inc options)) "]: ") (flush)
+    (let [choice (- (parse-long (read-line)) 1)]
+      (if (some #(= choice %1) options)
+        choice
+        (recur)))))
+
 (defn is-complete? [board]
   (or
      (has-player-won? :x board)
@@ -89,15 +97,8 @@
              (is-complete? (multiboard last-square-chosen))))
       (range 9))))
 
-(defn get-board-choice [multiboard]
-  (loop []
-    (let [board-choice (- (parse-long (read-line)) 1)]
-     (cond
-       (or (< board-choice 0) (> board-choice 8)) (do (println "Board must be 1 to 9") (recur))
-       (has-player-won? :x (multiboard board-choice)) (do (println "Board must not be won") (recur))
-       (has-player-won? :o (multiboard board-choice)) (do (println "Board must not be won") (recur))
-       (not-any? #(= nil %1) (multiboard board-choice)) (do (println "Board must not be full") (recur))
-       :else board-choice))))
+(defn get-board-choice [multiboard & [last-move]]
+  (prompt "Board " (possible-board-choices multiboard last-move)))
 
 (defn possible-square-choices [board]
   (filter
@@ -105,12 +106,7 @@
     (range 9)))
 
 (defn get-square-choice [board]
-  (loop []
-    (let [square-choice (- (parse-long (read-line)) 1)]
-     (cond
-       (or (< square-choice 0) (> square-choice 8)) (do (println "Square must be 1 to 9") (recur))
-       (not= nil (board square-choice)) (do (println "Square must be empty") (recur))
-       :else square-choice))))
+  (prompt "Square" (possible-square-choices board)))
 
 (defn get-move [multiboard]
   (clear-screen)

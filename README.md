@@ -54,7 +54,6 @@ lein spec
 - Bot that does a monte-carlo tree search
 - Better display
     - Best win display/game conclusion
-    - Prompt the user for board, then square
     - Display boards that are won as the symbol that won it
 - vhs gif(s) <https://github.com/charmbracelet/vhs>
 - renovate
