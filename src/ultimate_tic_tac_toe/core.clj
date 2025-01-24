@@ -135,18 +135,25 @@
       "?" "\\"))
   (read-line))
 
-(defn play-the-game []
-  (println (loop [multiboard empty-multi-board
-                  symbol :x
-                  last-move nil]
+(defn play-the-game [x o]
+  (loop [multiboard empty-multi-board
+         symbol :x
+         last-move nil]
     (cond
-      (has-player-won-the-multi-board? :x multiboard) "x won!"
-      (has-player-won-the-multi-board? :o multiboard) "o won!"
-      false "is-multi-board-filled? cat's game" ; todo
-      :else (let [next-move (get-move multiboard last-move)]
-                  (recur (assoc-in multiboard next-move symbol) (opponent symbol) next-move))))))
+      (has-player-won-the-multi-board? :x multiboard) :x
+      (has-player-won-the-multi-board? :o multiboard) :o
+      false :c ; TODO
+      :else (let [prompt-player (if (= :x symbol) x o)
+                  next-move (prompt-player multiboard last-move)]
+              (recur (assoc-in multiboard next-move symbol) (opponent symbol) next-move)))))
+
+(defn announce-winner [winner]
+  (println (cond
+    (= :x winner) "X has won!"
+    (= :o winner) "O has won!"
+    :else "Best 2 out of 3?")))
 
 (defn -main [& args]
   (title-screen)
-  (play-the-game))
+  (announce-winner (play-the-game get-move get-move)))
 

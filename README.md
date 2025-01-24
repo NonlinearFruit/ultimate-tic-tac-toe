@@ -46,10 +46,7 @@ lein spec
 
 ## Plan
 
-- play-the-game
-    - returns winner
-    - takes player-x get-move function
-    - takes player-o get-move function
+- Test play-the-game
 - Bot that makes random moves (player vs bot)
 - Bot that uses a minimax via some heuristic
 - Bot that does a monte-carlo tree search
