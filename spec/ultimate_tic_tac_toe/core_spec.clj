@@ -5,6 +5,7 @@
 (def n [nil nil nil nil nil nil nil nil nil])
 (def x [:x :x :x nil nil nil nil nil nil])
 (def o [:o :o :o nil nil nil nil nil nil])
+(def c [:x :o :x :x :o :x :o :x :o])
 
 (describe "_ultimate_ tic tac toe"
   (context "opponent"
@@ -12,11 +13,28 @@
       (should= :o (opponent :x)))
     (it "is :o for :x"
       (should= :x (opponent :o))))
+
+  (context "possible-board-choices"
+    (it "has all boards available when multiboard is empty"
+      (should= (range 9) (possible-board-choices [n n n n n n n n n])))
+    (it "has incomplete board"
+      (should-contain 2 (possible-board-choices [n n (assoc n 0 :x) n n n n n n])))
+    (it "ignores board won by o"
+      (should-not-contain 3 (possible-board-choices [n n n o n n n n n])))
+    (it "ignores board won by cat"
+      (should-not-contain 4 (possible-board-choices [n n n n c n n n n])))
+    (it "ignores board won by x"
+      (should-not-contain 1 (possible-board-choices [n x n n n n n n n])))
+    (it "only allows the square choice of the last move"
+      (should= [1] (possible-board-choices [n n n n n n n n n] [3 1])))
+    (it "has all (other) boards when the last square choice is a completed board"
+      (should= (range 1 9) (possible-board-choices [x n n n n n n n n] [3 0]))))
+
   (context "has the player won the board?"
     (it "has no win for nil board"
       (should= false (has-player-won? :x n)))
     (it "has no win for cats game"
-      (should= false (has-player-won? :x [:x :o :x :x :o :x :o :x :o])))
+      (should= false (has-player-won? :x c)))
     (it "has no win for opponents game"
       (should= false (has-player-won? :x [:o :o :o nil nil nil nil nil nil])))
 

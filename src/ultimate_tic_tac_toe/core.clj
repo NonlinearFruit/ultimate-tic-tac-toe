@@ -74,6 +74,21 @@
 (defn clear-screen []
   (print "\033[H\033[2J"))
 
+(defn is-complete? [board]
+  (or
+     (has-player-won? :x board)
+     (has-player-won? :o board)
+     (not (some? (some (fn [sq] (= nil sq)) board)))))
+
+(defn possible-board-choices [multiboard & [last-move]]
+  (let [last-square-chosen (last (or last-move [nil]))]
+    (filter
+      #(and (not (is-complete? (multiboard %1)))
+         (or (= last-square-chosen %1)
+             (= last-square-chosen nil)
+             (is-complete? (multiboard last-square-chosen))))
+      (range 9))))
+
 (defn get-board-choice [multiboard]
   (loop []
     (let [board-choice (- (parse-long (read-line)) 1)]
