@@ -70,6 +70,12 @@
             (it "finds backward diagonal win"
                 (should= true (has-player-won? :x [:x nil nil nil :x nil nil nil :x]))))
 
+          (context "has cat won?"
+            (it "has no win for nil board"
+                (should= false (has-cat-won? n)))
+            (it "has win for cats game"
+                (should= true (has-cat-won? c))))
+
           (context "has the player won the multiboard?"
             (it "has no win for nil board"
                 (should= false (has-player-won-the-multi-board? :x [n n n n n n n n n])))
@@ -150,6 +156,13 @@
                 (should= :o ((play-the-game
                               (fake-player (repeat [0 1]))
                               (fake-player [[0 0] [0 4] [0 8] [4 0] [4 4] [4 8] [8 0] [8 4] [8 8]]))
+                             :winner)))
+            (it "picks up a board midgame"
+                (should= :x ((play-the-game
+                              (fake-player [[0 0] [0 4] [0 8]])
+                              (fake-player (repeat [0 1]))
+                              [n o o o x o o o x]
+                              [8 8])
                              :winner))))
 
           (context "random bot"

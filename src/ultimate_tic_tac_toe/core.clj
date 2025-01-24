@@ -159,10 +159,10 @@
       "?" "\\"))
   (read-line))
 
-(defn play-the-game [x o]
-  (loop [multiboard empty-multi-board
+(defn play-the-game [x o & [multiboard last-move]]
+  (loop [multiboard (or multiboard empty-multi-board)
          symbol :x
-         last-move nil]
+         last-move (or last-move nil)]
     (cond
       (has-player-won-the-multi-board? :x multiboard) {:winner :x :board multiboard}
       (has-player-won-the-multi-board? :o multiboard) {:winner :o :board multiboard}

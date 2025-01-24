@@ -48,9 +48,8 @@ lein spec
 
 - Bot that uses a minimax via some heuristic
 - Bot that does a monte-carlo tree search
-    - play-the-game optionally takes a multiboard
 - renovate
 
-### Demo
+## Demo
 
 ![ultimate tic tac toe being played in the terminal](./img/demo.gif)
