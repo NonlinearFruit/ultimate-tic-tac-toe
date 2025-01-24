@@ -30,6 +30,12 @@
     (it "has all (other) boards when the last square choice is a completed board"
       (should= (range 1 9) (possible-board-choices [x n n n n n n n n] [3 0]))))
 
+  (context "possible-square-choices"
+    (it "has all squares available when board is empty"
+      (should= (range 9) (possible-square-choices n)))
+    (it "ignores square that is filled"
+      (should-not-contain 2 (possible-square-choices (assoc n 2 :x)))))
+
   (context "has the player won the board?"
     (it "has no win for nil board"
       (should= false (has-player-won? :x n)))

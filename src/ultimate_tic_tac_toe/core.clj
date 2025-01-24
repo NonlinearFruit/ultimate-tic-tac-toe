@@ -99,6 +99,11 @@
        (not-any? #(= nil %1) (multiboard board-choice)) (do (println "Board must not be full") (recur))
        :else board-choice))))
 
+(defn possible-square-choices [board]
+  (filter
+    #(= nil (board %1))
+    (range 9)))
+
 (defn get-square-choice [board]
   (loop []
     (let [square-choice (- (parse-long (read-line)) 1)]
