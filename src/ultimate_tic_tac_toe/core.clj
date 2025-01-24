@@ -142,7 +142,7 @@
     (cond
       (has-player-won-the-multi-board? :x multiboard) :x
       (has-player-won-the-multi-board? :o multiboard) :o
-      false :c ; TODO
+      (not-any? nil? (flatten multiboard)) :c
       :else (let [prompt-player (if (= :x symbol) x o)
                   next-move (prompt-player multiboard last-move)]
               (recur (assoc-in multiboard next-move symbol) (opponent symbol) next-move)))))
