@@ -106,7 +106,7 @@
 (defn get-square-choice [board]
   (prompt "Square" (possible-square-choices board)))
 
-(defn get-move [multiboard last-move]
+(defn human-player [multiboard last-move]
   (clear-screen)
   (println (stringify-multi-board multiboard))
   (let [board-choice (get-board-choice multiboard last-move)
@@ -142,20 +142,22 @@
          symbol :x
          last-move nil]
     (cond
-      (has-player-won-the-multi-board? :x multiboard) :x
-      (has-player-won-the-multi-board? :o multiboard) :o
-      (not-any? nil? (flatten multiboard)) :c
+      (has-player-won-the-multi-board? :x multiboard) {:winner :x :board multiboard}
+      (has-player-won-the-multi-board? :o multiboard) {:winner :o :board multiboard}
+      (not-any? nil? (flatten multiboard)) {:winner :c :board multiboard}
       :else (let [prompt-player (if (= :x symbol) x o)
                   next-move (prompt-player multiboard last-move)]
               (recur (assoc-in multiboard next-move symbol) (opponent symbol) next-move)))))
 
-(defn announce-winner [winner]
+(defn announce-winner [result]
+  (clear-screen)
+  (println (stringify-multi-board (result :board)))
   (println (cond
-             (= :x winner) "X has won!"
-             (= :o winner) "O has won!"
+             (= :x (result :winner)) "X has won!"
+             (= :o (result :winner)) "O has won!"
              :else "Best 2 out of 3?")))
 
 (defn -main [& args]
   (title-screen)
-  (announce-winner (play-the-game get-move random-bot)))
+  (announce-winner (play-the-game human-player human-player)))
 
