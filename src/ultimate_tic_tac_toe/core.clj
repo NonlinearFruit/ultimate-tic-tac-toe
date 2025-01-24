@@ -108,10 +108,10 @@
 (defn get-square-choice [board]
   (prompt "Square" (possible-square-choices board)))
 
-(defn get-move [multiboard]
+(defn get-move [multiboard last-move]
   (clear-screen)
   (println (stringify-multi-board multiboard))
-  (let [board-choice (get-board-choice multiboard)
+  (let [board-choice (get-board-choice multiboard last-move)
         square-choice (get-square-choice (multiboard board-choice))]
     [board-choice square-choice]))
 
@@ -136,12 +136,15 @@
   (read-line))
 
 (defn play-the-game []
-  (println (loop [multiboard empty-multi-board symbol :x]
+  (println (loop [multiboard empty-multi-board
+                  symbol :x
+                  last-move nil]
     (cond
       (has-player-won-the-multi-board? :x multiboard) "x won!"
       (has-player-won-the-multi-board? :o multiboard) "o won!"
       false "is-multi-board-filled? cat's game" ; todo
-      :continue (recur (assoc-in multiboard (get-move multiboard) symbol) (opponent symbol))))))
+      :else (let [next-move (get-move multiboard last-move)]
+                  (recur (assoc-in multiboard next-move symbol) (opponent symbol) next-move))))))
 
 (defn -main [& args]
   (title-screen)

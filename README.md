@@ -46,9 +46,6 @@ lein spec
 
 ## Plan
 
-- Validate board choice (advanced)
-    - Track last move (or history)
-    - If opponent plays in square x and board x isn't won, then player must play on board x 
 - Bot that makes random moves (player vs bot)
 - Bot that uses a minimax via some heuristic
 - Bot that does a monte-carlo tree search
