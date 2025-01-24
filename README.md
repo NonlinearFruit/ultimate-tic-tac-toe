@@ -49,8 +49,6 @@ lein spec
 - Bot that uses a minimax via some heuristic
 - Bot that does a monte-carlo tree search
     - play-the-game optionally takes a multiboard
-- Better display
-    - Display boards that are won as the symbol that won it
 - renovate
 
 ### Demo

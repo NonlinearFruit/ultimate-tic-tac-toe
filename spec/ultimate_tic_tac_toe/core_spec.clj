@@ -121,11 +121,12 @@
 
           (context "play the game"
             (it "returns :x when the first player wins"
-                (should= :x (play-the-game
+                (should= :x ((play-the-game
                               (fake-player [[0 0] [0 4] [0 8] [4 0] [4 4] [4 8] [8 0] [8 4] [8 8]])
-                              (fake-player (repeat [0 1])))))
+                              (fake-player (repeat [0 1])))
+                             :winner)))
             (it "returns :c when the cat wins"
-                (should= :c (play-the-game
+                (should= :c ((play-the-game
                               (fake-player [[0 1] [0 3] [0 5] [0 6] [0 8]
                                             [1 0] [1 2] [1 4] [1 7]
                                             [2 1] [2 3] [2 5] [2 6] [2 8]
@@ -143,11 +144,13 @@
                                             [5 1] [5 3] [5 5] [5 6] [5 8]
                                             [6 0] [6 2] [6 4] [6 7]
                                             [7 1] [7 3] [7 5] [7 6] [7 8]
-                                            [8 0] [8 2] [8 4] [8 7]]))))
+                                            [8 0] [8 2] [8 4] [8 7]]))
+                             :winner)))
             (it "returns :o when the second player wins"
-                (should= :o (play-the-game
+                (should= :o ((play-the-game
                               (fake-player (repeat [0 1]))
-                              (fake-player [[0 0] [0 4] [0 8] [4 0] [4 4] [4 8] [8 0] [8 4] [8 8]])))))
+                              (fake-player [[0 0] [0 4] [0 8] [4 0] [4 4] [4 8] [8 0] [8 4] [8 8]]))
+                             :winner))))
 
           (context "random bot"
             (it "chooses a board in the right range"

@@ -1,5 +1,5 @@
 # Display
-Output demo.gif
+Output img/demo.gif
 Set FontSize 24
 Set Width 1100
 Set Height 900

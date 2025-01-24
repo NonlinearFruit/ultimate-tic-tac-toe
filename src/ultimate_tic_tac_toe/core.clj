@@ -2,6 +2,21 @@
 
 (def empty-board (vec (take 9 (repeat nil))))
 (def empty-multi-board (vec (take 9 (repeat empty-board))))
+(def x-board ["X   X"
+              " X X "
+              "  X  "
+              " X X "
+              "X   X"])
+(def o-board ["OOOOO"
+              "O   O"
+              "O   O"
+              "O   O"
+              "OOOOO"])
+(def c-board ["CCCCC"
+              "C    "
+              "C    "
+              "C    "
+              "CCCCC"])
 
 (def lines (apply concat (vals {:rows [[0 1 2] [3 4 5] [6 7 8]]
                                 :columns [[0 3 6] [1 4 7] [2 5 8]]
@@ -9,6 +24,9 @@
 
 (defn opponent [symbol]
   (if (= :x symbol) :o :x))
+
+(defn has-cat-won? [board]
+  (not (some? (some (fn [sq] (= nil sq)) board))))
 
 (defn has-player-won? [symbol board]
   (some? (some
@@ -26,9 +44,13 @@
          (map #(if (some? %1) (name %1) " ") (flatten board))))
 
 (defn split-into-layers [multiboard]
-  (flatten (map
-             #(clojure.string/split (stringify-board %1) #"\n")
-             multiboard)))
+  (flatten
+    (map #(cond
+            (has-player-won? :x %1) x-board
+            (has-player-won? :o %1) o-board
+            (has-cat-won? %1) c-board
+            :else (clojure.string/split (stringify-board %1) #"\n"))
+         multiboard)))
 
 (defn order-layers-for-inserting [layers]
   (map last
@@ -84,7 +106,7 @@
   (or
     (has-player-won? :x board)
     (has-player-won? :o board)
-    (not (some? (some (fn [sq] (= nil sq)) board)))))
+    (has-cat-won? board)))
 
 (defn possible-board-choices [multiboard & [last-move]]
   (let [last-square-chosen (last (or last-move [nil]))]
