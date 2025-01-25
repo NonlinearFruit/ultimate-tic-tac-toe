@@ -113,7 +113,7 @@
     (filter
       #(and (not (is-complete? (multiboard %1)))
             (or (= last-square-chosen %1)
-                (= last-square-chosen nil)
+                (nil? last-square-chosen)
                 (is-complete? (multiboard last-square-chosen))))
       (range 9))))
 
@@ -122,7 +122,7 @@
 
 (defn possible-square-choices [board]
   (filter
-    #(= nil (board %1))
+    #(nil? (board %1))
     (range 9)))
 
 (defn get-square-choice [board]
