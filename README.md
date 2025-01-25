@@ -48,6 +48,10 @@ lein spec
 
 - Bot that uses a minimax via some heuristic
 - Bot that does a monte-carlo tree search
+- Try catch around the long parse
+- cli flags to decide:
+     - human v human
+     - human v random bot
 - renovate
 
 ## Demo

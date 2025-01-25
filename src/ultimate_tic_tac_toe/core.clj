@@ -131,6 +131,7 @@
 (defn human-player [multiboard last-move]
   (clear-screen)
   (println (stringify-multi-board multiboard))
+  (and last-move (println "Opponents move:" (map inc last-move)))
   (let [board-choice (get-board-choice multiboard last-move)
         square-choice (get-square-choice (multiboard board-choice))]
     [board-choice square-choice]))
@@ -181,5 +182,5 @@
 
 (defn -main [& args]
   (title-screen)
-  (announce-winner (play-the-game human-player human-player)))
+  (announce-winner (play-the-game human-player random-bot)))
 
