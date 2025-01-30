@@ -1,5 +1,6 @@
 (ns ultimate-tic-tac-toe.core)
 
+(def monte-carlo-strength 5)
 (def empty-board (vec (take 9 (repeat nil))))
 (def empty-multi-board (vec (take 9 (repeat empty-board))))
 (def x-board ["X   X"
@@ -26,7 +27,7 @@
   (if (= :x symbol) :o :x))
 
 (defn has-cat-won? [board]
-  (not (some? (some (fn [sq] (= nil sq)) board))))
+  (not (some? (some nil? board))))
 
 (defn has-player-won? [symbol board]
   (some? (some
@@ -37,6 +38,12 @@
   (some? (some
            (fn [line] (every? #(has-player-won? symbol %1) (map multiboard line)))
            lines)))
+
+(defn has-cat-won-the-multi-board? [multiboard]
+  (every? #(or (has-player-won? :x %1)
+            (has-player-won? :o %1)
+            (has-cat-won? %1))
+       multiboard))
 
 (defn stringify-board [board]
   (apply format
@@ -167,10 +174,32 @@
     (cond
       (has-player-won-the-multi-board? :x multiboard) {:winner :x :board multiboard}
       (has-player-won-the-multi-board? :o multiboard) {:winner :o :board multiboard}
-      (not-any? nil? (flatten multiboard)) {:winner :c :board multiboard}
+      (has-cat-won-the-multi-board? multiboard) {:winner :c :board multiboard}
       :else (let [prompt-player (if (= :x symbol) x o)
                   next-move (prompt-player multiboard last-move)]
               (recur (assoc-in multiboard next-move symbol) (opponent symbol) next-move)))))
+
+(defn all-possible-moves [multiboard last-move]
+  (apply concat
+    (map (fn [board] (map #(do [board %1]) (possible-square-choices (multiboard board))))
+      (possible-board-choices multiboard last-move))))
+
+(defn simulate-next-move [multiboard next-move]
+  ((play-the-game random-bot random-bot
+                  (assoc-in multiboard next-move :o)
+                  next-move)
+   :winner))
+
+; FLAW: Assumes it is playing as :o
+; FLAW: Score only counts wins
+(defn measure-next-move [multiboard next-move]
+  {:move next-move
+   :score (count (filter #(= :o %1)
+                         (map (fn [_] (simulate-next-move multiboard next-move))
+                              (range monte-carlo-strength))))})
+
+(defn monte-carlo-bot [multiboard last-move]
+  ((first (sort-by :score (map #(measure-next-move multiboard %1) (all-possible-moves multiboard last-move)))) :move))
 
 (defn announce-winner [result]
   (clear-screen)
@@ -182,5 +211,5 @@
 
 (defn -main [& args]
   (title-screen)
-  (announce-winner (play-the-game human-player random-bot)))
+  (announce-winner (play-the-game random-bot monte-carlo-bot)))
 

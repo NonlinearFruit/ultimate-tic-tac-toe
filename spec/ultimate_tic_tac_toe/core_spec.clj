@@ -35,7 +35,9 @@
             (it "only allows the square choice of the last move"
                 (should= [1] (possible-board-choices [n n n n n n n n n] [3 1])))
             (it "has all (other) boards when the last square choice is a completed board"
-                (should= (range 1 9) (possible-board-choices [x n n n n n n n n] [3 0]))))
+                (should= (range 1 9) (possible-board-choices [x n n n n n n n n] [3 0])))
+            (it "has no options when the board is full"
+                (should= [] (possible-board-choices [c c c c c c c c c]))))
 
           (context "possible square choices"
             (it "has all squares available when board is empty"
@@ -102,6 +104,16 @@
                 (should= true (has-player-won-the-multi-board? :x [n n x n x n x n n])))
             (it "finds backward diagonal win"
                 (should= true (has-player-won-the-multi-board? :x [x n n n x n n n x]))))
+
+          (context "has cat won the multiboard?"
+            (it "wins when no player has 3 in a row and all boards are complete"
+                (should= true (has-cat-won-the-multi-board? [x o x o x o o x o])))
+            (it "does not win when there is an incomplete board"
+                (should= false (has-cat-won-the-multi-board? [x n x o x o o x o])))
+            (it "wins when every board is a cats game"
+                (should= true (has-cat-won-the-multi-board? [c c c c c c c c c])))
+            (it "does not win for empty board"
+                (should= false (has-cat-won-the-multi-board? [n n n n n n n n n]))))
 
           (context "stringy board"
             (it "makes a blank board"
@@ -177,5 +189,19 @@
                 (should= 5 (second (random-bot [c c c c c (assoc c 5 nil) c c c] nil))))
             (it "chooses a square in the right range"
                 (should-contain (second (random-bot empty-multi-board nil))
+                                (range 9))))
+
+          (context "monte carlo bot"
+            (it "chooses a board in the right range"
+                (should-contain (first (monte-carlo-bot empty-multi-board nil))
+                                (range 9)))
+            (it "chooses only available board"
+                (should= 8 (first (monte-carlo-bot [c c c c c c c c n] nil))))
+            (it "chooses board based on opponents move"
+                (should= 5 (first (monte-carlo-bot empty-multi-board [0 5]))))
+            (it "chooses only available square"
+                (should= 5 (second (monte-carlo-bot [c c c c c (assoc c 5 nil) c c c] nil))))
+            (it "chooses a square in the right range"
+                (should-contain (second (monte-carlo-bot empty-multi-board nil))
                                 (range 9)))))
 (run-specs)
