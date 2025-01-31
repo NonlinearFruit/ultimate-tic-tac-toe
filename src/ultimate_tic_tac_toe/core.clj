@@ -146,9 +146,7 @@
     [board-choice square-choice]))
 
 (defn random-bot [multiboard last-move]
-  (let [board-choice (rand-nth (possible-board-choices multiboard last-move))
-        square-choice (rand-nth (possible-square-choices (multiboard board-choice)))]
-    [board-choice square-choice]))
+  (rand-nth (all-possible-moves multiboard last-move)))
 
 (defn play-the-game [x o & [multiboard last-move]]
   (loop [multiboard (or multiboard empty-multi-board)
@@ -177,7 +175,10 @@
                               (range monte-carlo-strength))))})
 
 (defn monte-carlo-bot [multiboard last-move]
-  ((last (sort-by :score (map #(measure-next-move multiboard %1) (all-possible-moves multiboard last-move)))) :move))
+  ((last (sort-by :score
+                  (map #(measure-next-move multiboard %1)
+                       (all-possible-moves multiboard last-move))))
+   :move))
 
 (defn announce-winner [result]
   (clear-screen)

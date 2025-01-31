@@ -46,7 +46,8 @@ lein spec
 
 ## Plan
 
-- Bot that uses a minimax via some heuristic
+- Human v Random bot gif
+- Human v Monte Carlo bot gif
 - Try catch around the long parse
 - cli flags to decide:
      - human v human
