@@ -177,7 +177,7 @@
                               (range monte-carlo-strength))))})
 
 (defn monte-carlo-bot [multiboard last-move]
-  ((first (sort-by :score (map #(measure-next-move multiboard %1) (all-possible-moves multiboard last-move)))) :move))
+  ((last (sort-by :score (map #(measure-next-move multiboard %1) (all-possible-moves multiboard last-move)))) :move))
 
 (defn announce-winner [result]
   (clear-screen)
@@ -208,5 +208,5 @@
 
 (defn -main [& args]
   (title-screen)
-  (announce-winner (play-the-game random-bot monte-carlo-bot)))
+  (announce-winner (play-the-game human-player monte-carlo-bot)))
 
