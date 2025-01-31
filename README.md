@@ -46,12 +46,12 @@ lein spec
 
 ## Plan
 
-- Human v Random bot gif
-- Human v Monte Carlo bot gif
-- Try catch around the long parse
+- human v random bot gif
+- human v monte carlo bot gif
 - cli flags to decide:
      - human v human
      - human v random bot
+     - human v monte carlo bot
 - renovate
 
 ## Demo

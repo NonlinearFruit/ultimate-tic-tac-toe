@@ -123,13 +123,19 @@
     (map (fn [board] (map #(do [board %1]) (possible-square-choices (multiboard board))))
       (possible-board-choices multiboard last-move))))
 
+(defn read-choice []
+  (try
+    (parse-long (read-line))
+    (catch Exception e
+      nil)))
+
 (defn prompt [msg options]
   (loop []
     (print msg "[" (clojure.string/join "," (map inc options)) "]: ") (flush)
-    (let [choice (- (parse-long (read-line)) 1)]
-      (if (some #(= choice %1) options)
-        choice
-        (recur)))))
+    (let [choice (read-choice)]
+      (cond (nil? choice) (recur)
+            (some #(= (dec choice) %1) options) (dec choice)
+            :else (recur)))))
 
 (defn get-square-choice [board]
   (prompt "Square" (possible-square-choices board)))
@@ -209,5 +215,5 @@
 
 (defn -main [& args]
   (title-screen)
-  (announce-winner (play-the-game human-player monte-carlo-bot)))
+  (announce-winner (play-the-game human-player random-bot)))
 
