@@ -8,16 +8,16 @@
               "  X  "
               " X X "
               "X   X"])
-(def o-board ["OOOOO"
+(def o-board [" OOO "
               "O   O"
               "O   O"
               "O   O"
-              "OOOOO"])
-(def c-board ["CCCCC"
+              " OOO "])
+(def c-board [" CCCC"
               "C    "
               "C    "
               "C    "
-              "CCCCC"])
+              " CCCC"])
 
 (def lines (apply concat (vals {:rows [[0 1 2] [3 4 5] [6 7 8]]
                                 :columns [[0 3 6] [1 4 7] [2 5 8]]
