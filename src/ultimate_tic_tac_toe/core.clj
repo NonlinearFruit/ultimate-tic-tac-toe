@@ -215,5 +215,5 @@
 
 (defn -main [& args]
   (title-screen)
-  (announce-winner (play-the-game human-player random-bot)))
+  (announce-winner (play-the-game human-player human-player)))
 

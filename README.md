@@ -56,4 +56,4 @@ lein spec
 
 ## Demo
 
-![ultimate tic tac toe being played in the terminal](./img/demo.gif)
+![ultimate tic tac toe being played in the terminal](./img/human-vs-random-bot.gif)
