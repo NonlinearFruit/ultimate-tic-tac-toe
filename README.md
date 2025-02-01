@@ -46,7 +46,6 @@ lein spec
 
 ## Plan
 
-- human v random bot gif
 - human v monte carlo bot gif
 - cli flags to decide:
      - human v human

@@ -173,10 +173,9 @@
    :winner))
 
 ; FLAW: Assumes it is playing as :o
-; FLAW: Score only counts wins
 (defn measure-next-move [multiboard next-move]
   {:move next-move
-   :score (count (filter #(= :o %1)
+   :score (reduce + (map #({:o 1 :c 0 :x -1} %1)
                          (map (fn [_] (simulate-next-move multiboard next-move))
                               (range monte-carlo-strength))))})
 
@@ -215,5 +214,5 @@
 
 (defn -main [& args]
   (title-screen)
-  (announce-winner (play-the-game human-player human-player)))
+  (announce-winner (play-the-game random-bot monte-carlo-bot)))
 
