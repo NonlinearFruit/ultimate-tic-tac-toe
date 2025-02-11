@@ -13,7 +13,7 @@
 
 <a href="https://github.com/NonlinearFruit/ultimate-tic-tac-toe/actions"><img src="https://img.shields.io/github/actions/workflow/status/nonlinearfruit/ultimate-tic-tac-toe/ci.yml"></a>
 
-What is Ultimate Tic Tac Toe? ([wiki](https://en.wikipedia.org/wiki/Ultimate_tic-tac-toe)) ([game](https://michaelxing.com/UltimateTTT/v3/))
+What is Ultimate Tic Tac Toe? 3x3 grid of tic-tac-toe boards. Goal: Win 3 boards in a line. ([wiki](https://en.wikipedia.org/wiki/Ultimate_tic-tac-toe)) ([game](https://michaelxing.com/UltimateTTT/v3/))
 
 ## Clojure
 
