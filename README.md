@@ -25,6 +25,11 @@ What is Ultimate Tic Tac Toe? 3x3 grid of tic-tac-toe boards. Goal: Win 3 boards
 - Weird Characters <https://clojure.org/guides/weird_characters>
 - GitHub Action <https://github.com/marketplace/actions/setup-clojure>
 
+```clj
+(dir speclj.core) ; Prints a sorted directory of public vars in a namespace
+(doc dir) ; Prints documentation for a var or special form given its name, or for a spec if given a keyword (very sparse)
+```
+
 ### Install
 
 <https://clojure.org/guides/install_clojure>
