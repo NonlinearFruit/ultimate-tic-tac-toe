@@ -21,7 +21,9 @@ What is Ultimate Tic Tac Toe? 3x3 grid of tic-tac-toe boards. Goal: Win 3 boards
     - Also clojure cli <https://tomekw.com/clojure-deps-edn-a-basic-guide/>
 - Speclj <https://github.com/slagyr/speclj>
     - Docs <http://micahmartin.com/speclj/speclj.core.html>
-- Docs <https://clojuredocs.org/>
+- Docs
+    - Examples <https://clojuredocs.org>
+    - docstrings <https://cljdoc.org>
 - Weird Characters <https://clojure.org/guides/weird_characters>
 - GitHub Action <https://github.com/marketplace/actions/setup-clojure>
 
